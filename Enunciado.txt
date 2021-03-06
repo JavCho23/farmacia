@@ -1,0 +1,7 @@
+Desarrollar un programa que gestione los medicamentos que comercializa una farmacia. La solicitud es que se registre el/los principios activos y poder identificar medicamentos iguales
+
+
+Medicamento
+ComponenteMedicamento: concentración
+PrincipioActivo
+Laboratorio

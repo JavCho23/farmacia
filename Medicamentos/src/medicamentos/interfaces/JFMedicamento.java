@@ -156,6 +156,7 @@ public class JFMedicamento extends javax.swing.JFrame {
         panListado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Listado"));
 
         tblListado.setModel( this.medicamentoTable);
+        tblListado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(tblListado);
 
         btnNuevo.setText("Nuevo");

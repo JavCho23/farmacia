@@ -98,4 +98,35 @@ public class DAOMedicamento
         return medicamentos;
     }
     
+    public List<Medicamento> listarVigentes() throws Exception{
+        List<Medicamento> medicamentos = null;
+        Laboratorio lab;
+        Medicamento med;
+        ResultSet rs = null;
+        String sql = "SELECT M.Codigo, M.Nombre, L.Nombre AS Laboratorio, M.Precio "
+                + "FROM Medicamento M JOIN Laboratorio L ON M.Laboratorio = L.Codigo "
+                + "WHERE M.Vigente = 1";
+        
+             
+        try{
+            this.conectar();
+            rs = this.pedirDatos(sql);
+            medicamentos = new ArrayList<>();
+            while( rs.next() == true){
+                med = new Medicamento();
+                med.setCodigo(rs.getInt("Codigo"));
+                med.setNombre(rs.getString("Nombre"));
+                med.setPrecio(rs.getDouble("Precio"));
+                lab = new Laboratorio();
+                lab.setNombre(rs.getString("Laboratorio"));
+                med.setLaboratorio(lab);
+                medicamentos.add(med);
+            }
+            rs.close();
+        }catch(Exception ex){
+            throw  ex;
+        }
+        
+        return medicamentos;
+    }
 }

@@ -6,6 +6,7 @@
 package medicamentos;
 
 import medicamentos.interfaces.JFLaboratorio;
+import medicamentos.interfaces.JFListadoMedicamentos;
 import medicamentos.interfaces.JFMedicamento;
 import medicamentos.interfaces.JFPrincipioActivo;
 
@@ -74,6 +75,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         mnuReportes.setText("Reportes");
 
         mnuListadoMedicamentos.setText("Listado de medicamentos");
+        mnuListadoMedicamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListadoMedicamentosActionPerformed(evt);
+            }
+        });
         mnuReportes.add(mnuListadoMedicamentos);
 
         mnuBusqueda.setText("Búsqueda de medicamente iguales");
@@ -114,6 +120,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         
         frame.setVisible(true);
     }//GEN-LAST:event_mnuPrincipioActivoActionPerformed
+
+    private void mnuListadoMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListadoMedicamentosActionPerformed
+        JFListadoMedicamentos frame = new JFListadoMedicamentos();
+        frame.setVisible(true);
+    }//GEN-LAST:event_mnuListadoMedicamentosActionPerformed
 
     /**
      * @param args the command line arguments

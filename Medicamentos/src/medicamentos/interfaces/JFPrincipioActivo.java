@@ -18,7 +18,7 @@ public class JFPrincipioActivo extends javax.swing.JFrame {
 
     private List<PrincipioActivo> principiosActivos;
     private PrincipioActivo actual;
-    private PrincipioActivoTableModel ltpa = new PrincipioActivoTableModel();
+    private PrincipioActivoTableModel principioTable = new PrincipioActivoTableModel();
     
     /**
      * Creates new form JFPrincipioActivo
@@ -65,8 +65,18 @@ public class JFPrincipioActivo extends javax.swing.JFrame {
         chkVigente.setText("Vigente");
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panPrincipioActivoLayout = new javax.swing.GroupLayout(panPrincipioActivo);
         panPrincipioActivo.setLayout(panPrincipioActivoLayout);
@@ -116,12 +126,22 @@ public class JFPrincipioActivo extends javax.swing.JFrame {
 
         panListadoPA.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado"));
 
-        tblListadoPA.setModel(this.ltpa);
+        tblListadoPA.setModel(this.principioTable);
         jScrollPane1.setViewportView(tblListadoPA);
 
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panListadoPALayout = new javax.swing.GroupLayout(panListadoPA);
         panListadoPA.setLayout(panListadoPALayout);
@@ -150,6 +170,11 @@ public class JFPrincipioActivo extends javax.swing.JFrame {
         );
 
         btnCerrar.setText("Cerrar");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,6 +205,56 @@ public class JFPrincipioActivo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        this.activarControles(true);
+        this.limpiarControles();
+        this.actual = null;
+        this.txtNombre.requestFocusInWindow();
+        this.txtDescripcion.requestFocusInWindow();
+        this.chkVigente.setEnabled(false);
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.activarControles(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        PrincipioActivo pAct;
+        DAOPrincipioActivo dao;
+        
+        if( this.validar() == true){
+            pAct = this.crearEntidad();
+            dao = new DAOPrincipioActivo();
+            try{
+                if( this.actual==null){
+                    dao.registrar(pAct);
+                }else{
+                    dao.modificar(pAct);
+                }
+                this.listarPrincipiosActivos();
+                this.activarControles(false);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int fila = this.tblListadoPA.getSelectedRow();
+        
+        if( fila> -1){
+            this.actual = this.principiosActivos.get(fila);
+            this.presentarDatos();
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Principio Activo");
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,9 +335,38 @@ public class JFPrincipioActivo extends javax.swing.JFrame {
         
         try {
             this.principiosActivos = dao.listar();
-            this.ltpa.setPrincipiosActivos(principiosActivos);
+            this.principioTable.setPrincipiosActivos(principiosActivos);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "No se pudo listar los Principios Activos");
         }
+    }
+
+    private void limpiarControles() {
+        this.txtNombre.setText("");
+        this.txtDescripcion.setText("");
+        this.chkVigente.setSelected(true);
+    }
+
+    private boolean validar() {
+        return true;
+    }
+
+    private PrincipioActivo crearEntidad() {
+        PrincipioActivo pAct =new PrincipioActivo();
+        
+        pAct.setNombre(this.txtNombre.getText());
+        pAct.setDescripcion(this.txtDescripcion.getText());
+        pAct.setVigente(this.chkVigente.isSelected());
+        if( this.actual  != null){
+            pAct.setCodigo(this.actual.getCodigo());
+        }
+        return pAct;
+    }
+
+    private void presentarDatos() {
+        this.activarControles(true);
+        this.txtNombre.setText(this.actual.getNombre());
+        this.txtDescripcion.setText(this.actual.getDescripcion());
+        this.chkVigente.setSelected(this.actual .isVigente());
     }
 }

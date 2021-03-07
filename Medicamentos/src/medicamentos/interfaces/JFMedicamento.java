@@ -350,7 +350,8 @@ public class JFMedicamento extends javax.swing.JFrame {
         }    }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnPrincipiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipiosActionPerformed
-        // TODO add your handling code here:
+        JFAddPrincipios frame = new JFAddPrincipios();
+        frame.setVisible(true);
     }//GEN-LAST:event_btnPrincipiosActionPerformed
 
     private void txtMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMedicamentoActionPerformed

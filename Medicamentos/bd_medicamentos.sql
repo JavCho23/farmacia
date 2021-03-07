@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-03-2021 a las 18:52:26
+-- Tiempo de generación: 07-03-2021 a las 16:18:10
 -- Versión del servidor: 10.1.34-MariaDB
 -- Versión de PHP: 7.2.7
 
@@ -35,6 +35,18 @@ CREATE TABLE `componente` (
   `vigente` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `componente`
+--
+
+INSERT INTO `componente` (`principio`, `medicamento`, `concentracion`, `vigente`) VALUES
+(1, 2, '250', 1),
+(2, 2, '150', 1),
+(1, 3, '250', 1),
+(1, 4, '250', 1),
+(2, 4, '100', 1),
+(3, 4, '25', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -53,14 +65,7 @@ CREATE TABLE `laboratorio` (
 
 INSERT INTO `laboratorio` (`codigo`, `nombre`, `vigente`) VALUES
 (1, 'Mi Farma', 1),
-(2, 'Scientia', 1),
-(3, 'Kloin', 1),
-(4, 'Farm', 1),
-(5, 'Xtreme', 1),
-(6, 'Nanotech', 1),
-(7, 'Journel', 1),
-(8, 'Klenin', 1),
-(9, 'Jers', 1);
+(2, 'Scientia', 1);
 
 -- --------------------------------------------------------
 
@@ -73,7 +78,7 @@ CREATE TABLE `medicamento` (
   `nombre` varchar(80) NOT NULL,
   `precio` double NOT NULL,
   `laboratorio` int(11) NOT NULL,
-  `vigente` tinyint(1) DEFAULT NULL
+  `vigente` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -81,8 +86,10 @@ CREATE TABLE `medicamento` (
 --
 
 INSERT INTO `medicamento` (`codigo`, `nombre`, `precio`, `laboratorio`, `vigente`) VALUES
-(1, 'Kitadol', 1, 7, 1),
-(2, 'Paracetamol', 1, 4, 1);
+(1, 'Kitadol', 2, 1, 1),
+(2, 'Kitadol', 15, 2, 1),
+(3, 'Migrax', 1, 2, 1),
+(4, 'Bio Electro', 3, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -96,6 +103,15 @@ CREATE TABLE `principioactivo` (
   `descripcion` varchar(200) NOT NULL,
   `vigente` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `principioactivo`
+--
+
+INSERT INTO `principioactivo` (`codigo`, `nombre`, `descripcion`, `vigente`) VALUES
+(1, 'Paracetamol', 'Puro', 1),
+(2, 'Cafeína', '--', 1),
+(3, 'Ácido Acetilsalicílico', '100%', 1);
 
 --
 -- Índices para tablas volcadas
@@ -135,19 +151,19 @@ ALTER TABLE `principioactivo`
 -- AUTO_INCREMENT de la tabla `laboratorio`
 --
 ALTER TABLE `laboratorio`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `medicamento`
 --
 ALTER TABLE `medicamento`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `principioactivo`
 --
 ALTER TABLE `principioactivo`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas

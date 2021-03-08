@@ -71,7 +71,7 @@ public class DAOMedicamento
         Laboratorio lab;
         Medicamento med;
         ResultSet rs = null;
-        String sql = "SELECT M.Codigo, M.Nombre, L.Nombre AS Laboratorio "
+        String sql = "SELECT M.Codigo, M.Nombre, L.Nombre AS Laboratorio,M.Precio "
                 + "FROM Medicamento M JOIN Laboratorio L ON M.Laboratorio = L.Codigo "
                 + "WHERE M.nombre LIKE '" + nombre + "%' "
                 + " ORDER BY M.Nombre, L.Nombre";
@@ -85,6 +85,8 @@ public class DAOMedicamento
                 med = new Medicamento();
                 med.setCodigo(rs.getInt("Codigo"));
                 med.setNombre(rs.getString("Nombre"));
+                med.setPrecio(rs.getDouble("Precio"));
+
                 lab = new Laboratorio();
                 lab.setNombre(rs.getString("Laboratorio"));
                 med.setLaboratorio(lab);
@@ -124,6 +126,8 @@ public class DAOMedicamento
                 medicamentos.add(med);
             }
             rs.close();
+            this.cerrar();
+
         }catch(Exception ex){
             throw  ex;
         }
@@ -135,10 +139,10 @@ public class DAOMedicamento
         Laboratorio lab;
         Medicamento med;
         ResultSet rs = null;
-        String sql = "SELECT M.Codigo, M.Nombre, L.Nombre AS Laboratorio "
+        String sql = "SELECT M.Codigo, M.Nombre, L.Nombre AS Laboratorio,M.Precio "
                 + "FROM Medicamento M JOIN Laboratorio L ON M.Laboratorio = L.Codigo "
                 + "WHERE M.Codigo != "+ medicamento.getCodigo();
-        
+        DAOComponente daoComponente = new DAOComponente();
              
         try{
             this.conectar();
@@ -148,12 +152,16 @@ public class DAOMedicamento
                 med = new Medicamento();
                 med.setCodigo(rs.getInt("Codigo"));
                 med.setNombre(rs.getString("Nombre"));
+                med.setPrecio(rs.getDouble("Precio"));
+                med.setComponentes(daoComponente.listarPorMedicamento(med));
                 lab = new Laboratorio();
                 lab.setNombre(rs.getString("Laboratorio"));
                 med.setLaboratorio(lab);
+                
                 medicamentos.add(med);
             }
             rs.close();
+           this.cerrar();
         }catch(Exception ex){
             throw  ex;
         }
@@ -174,6 +182,7 @@ public class DAOMedicamento
                 componente.setMedicamento(medicamentoAActualizar);
                 daoComponente.registrar(componente);
             }
+         
         }catch(Exception ex){
             throw  ex;
         }

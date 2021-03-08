@@ -61,4 +61,17 @@ public class Medicamento {
         return this.laboratorio;
     }
     
+    public boolean equals(Medicamento medicamento){
+        Boolean isEqual = true;
+       if(medicamento.getComponentes().isEmpty() || this.componentes.isEmpty()) return false;
+       if(medicamento.getComponentes().size() != this.componentes.size()) return false;
+        for (Componente componente : this.componentes) {
+          if(!medicamento.getComponentes().contains(componente)){
+              isEqual = false;
+              break;
+          }
+        }
+        return isEqual; 
+    }
+    
 }

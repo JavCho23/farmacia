@@ -63,6 +63,8 @@ public class DAOComponente
                 componentes.add(comp);
             }
             rs.close();
+            this.cerrar();
+
         }catch(Exception ex){
             throw  ex;
         }

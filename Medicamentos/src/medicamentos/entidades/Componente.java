@@ -39,4 +39,10 @@ public class Componente {
         this.medicamento = medicamento;
     }
     
+    @Override
+    public boolean equals(Object objectComponente){
+        if(!(objectComponente instanceof Componente)) return false;
+        Componente componente = (Componente) objectComponente;
+        return ((componente.getConcentracion() == null ? this.concentracion == null : componente.getConcentracion().equals(this.concentracion)) && componente.getPrincipio().getCodigo() == this.principio.getCodigo());
+    }
 }

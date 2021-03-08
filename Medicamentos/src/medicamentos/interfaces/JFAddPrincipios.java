@@ -31,7 +31,6 @@ public class JFAddPrincipios extends javax.swing.JFrame {
     public JFAddPrincipios() {
         initComponents();
         this.activarControles(false);
-        this.listarComponentes();
         this.listarPrincipios();
     }
 
@@ -235,10 +234,8 @@ public class JFAddPrincipios extends javax.swing.JFrame {
     public void llamarMedicamento(Medicamento medicamento){
         this.med = medicamento;
         this.txtMedicamento.setText(this.med.getNombre());
-    }
-    
-    private void listarComponentes(){
-         DAOComponente dao = new DAOComponente();
+        
+        DAOComponente dao = new DAOComponente();
          String medicamentoss = this.txtMedicamento.getText();
         
         try{
@@ -247,7 +244,7 @@ public class JFAddPrincipios extends javax.swing.JFrame {
             
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this, "No se pudo listar los componentes");
-        }        
+        }  
     }
     
     private void listarPrincipios(){

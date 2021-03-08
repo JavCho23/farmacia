@@ -25,12 +25,13 @@ public class DAOComponente
     }
 
     public void modificar(Componente componente)throws Exception{
-         String sql = "UPDATE Medicamento SET Concentracion = '"  + componente.getConcentracion()+ 
+         String sql = "UPDATE Componente SET Concentracion = '"  + componente.getConcentracion()+ 
                  "', Vigente = " + (componente.isVigente() == true ? "1" : "0") +
                  " where Principio = " + componente.getPrincipio().getCodigo() 
                  + " and Medicamento = " + componente.getMedicamento().getCodigo();
 
         try {
+            System.out.println(sql);
             this.conectar();
             this.ejecutarOrden(sql);
         } catch (Exception ex) {
@@ -91,16 +92,15 @@ public class DAOComponente
         return componentes;
     }
     
-    public List<Componente> listar(String nombre) throws Exception{
+    public List<Componente> listar(Medicamento medicamento) throws Exception{
         List<Componente> componentes = null;
         Componente comp;
         PrincipioActivo pa;
-        Medicamento med;
         ResultSet rs = null;
-        String sql = "SELECT PA.Nombre AS PrincipioActivo, C.Concentracion "
+        String sql = "SELECT PA.Codigo as PrincipioCodigo, PA.Nombre AS PrincipioActivo, C.Concentracion "
                 + "FROM Componente C JOIN Medicamento M JOIN PrincipioActivo PA "
                 + "ON C.Principio = PA.Codigo AND C.Medicamento = M.Codigo "
-                + "WHERE M.nombre LIKE '" + nombre + "%' "
+                + "WHERE M.Codigo = " + medicamento.getCodigo()
                 + " ORDER BY PA.Nombre";
         
              
@@ -111,6 +111,7 @@ public class DAOComponente
             while( rs.next() == true){
                 comp = new Componente();
                 pa = new PrincipioActivo();
+                pa.setCodigo(rs.getInt("PrincipioCodigo"));
                 pa.setNombre(rs.getString("PrincipioActivo"));
                 comp.setPrincipio(pa);
                 comp.setConcentracion(rs.getString("Concentracion"));

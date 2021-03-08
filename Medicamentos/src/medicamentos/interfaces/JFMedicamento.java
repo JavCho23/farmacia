@@ -359,13 +359,13 @@ public class JFMedicamento extends javax.swing.JFrame {
         }    }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnPrincipiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipiosActionPerformed
-        JFAddPrincipios frame = new JFAddPrincipios();
-        frame.setVisible(true);
+       
         int fila = this.tblListado.getSelectedRow();
         
         if( fila> -1){
             this.actual = this.medicamentos.get(fila);
-            frame.llamarMedicamento(this.actual);
+            JFAddPrincipios frame = new JFAddPrincipios(this.actual);
+            frame.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "Debe seleccionar un Medicamento c:");
         }

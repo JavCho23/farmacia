@@ -27,11 +27,14 @@ public class JFAddPrincipios extends javax.swing.JFrame {
     List<Componente> componentes;
     /**
      * Creates new form JFAddPrincipios
+     * @param medicamento
      */
-    public JFAddPrincipios() {
+    public JFAddPrincipios(Medicamento medicamento) {
         initComponents();
-        this.activarControles(false);
+        
         this.listarPrincipios();
+        this.med = medicamento;
+        this.listarComponentes();
     }
 
     /**
@@ -68,9 +71,15 @@ public class JFAddPrincipios extends javax.swing.JFrame {
         });
 
         tblListaComponentes.setModel(this.componenteTable);
+        tblListaComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListaComponentesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblListaComponentes);
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -88,6 +97,7 @@ public class JFAddPrincipios extends javax.swing.JFrame {
         lblConcentracion.setText("Concentración:");
 
         btnAgregar.setText("Agregar");
+        btnAgregar.setEnabled(false);
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -95,6 +105,12 @@ public class JFAddPrincipios extends javax.swing.JFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panComponentesLayout = new javax.swing.GroupLayout(panComponentes);
         panComponentes.setLayout(panComponentesLayout);
@@ -120,12 +136,13 @@ public class JFAddPrincipios extends javax.swing.JFrame {
                         .addGap(0, 12, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panComponentesLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panComponentesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEliminar)
-                        .addContainerGap())))
+                        .addGroup(panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panComponentesLayout.createSequentialGroup()
+                                .addComponent(txtMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(72, 72, 72))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panComponentesLayout.createSequentialGroup()
+                                .addComponent(btnEliminar)
+                                .addContainerGap())))))
         );
         panComponentesLayout.setVerticalGroup(
             panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,8 +218,61 @@ public class JFAddPrincipios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        Componente comp ;
+        DAOComponente dao ;
+        int principioIndex = this.tblListaPrincipios.getSelectedRow();
+        if(principioIndex == -1) return;
+        
+        boolean noLoTiene = true;
+         for (Componente componente : this.componentes) {
+            
+             if(componente.getPrincipio().getNombre().equals(this.principios.get(principioIndex).getNombre())){
+               noLoTiene = false;
+              }
+                  
+         }
+        if(!noLoTiene){
+        JOptionPane.showMessageDialog(this, "Ya tiene ese principio activo");
+            return;
+        }
+            comp = this.crearEntidad();
+            dao = new DAOComponente();
+            try{
+                dao.registrar(comp);
+                
+                this.listarComponentes();
+                this.activarControles(false);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tblListaComponentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaComponentesMouseClicked
+this.activarControles(false);    }//GEN-LAST:event_tblListaComponentesMouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        
+     
+        DAOComponente dao ;
+        int componenteIndex = this.tblListaComponentes.getSelectedRow();
+        System.err.println(componenteIndex);
+        if(componenteIndex == -1) return;
+        Componente comp  = new Componente();
+        comp.setConcentracion(this.txtConcentracion.getText());
+        comp.setMedicamento(this.med);
+        comp.setPrincipio(this.componentes.get(componenteIndex).getPrincipio());
+        comp.setVigente(true);
+            dao = new DAOComponente();
+            try{
+                dao.modificar(comp);
+                this.listarComponentes();
+                
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,7 +304,7 @@ public class JFAddPrincipios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFAddPrincipios().setVisible(true);
+                new JFAddPrincipios(null).setVisible(true);
             }
         });
     }
@@ -255,31 +325,24 @@ public class JFAddPrincipios extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void activarControles(boolean estado) {
-        this.lblConcentracion.setEnabled(estado);
-        this.txtConcentracion.setEnabled(estado);
+        if(estado){
+            this.lblConcentracion.setEnabled(true);
+            this.txtConcentracion.setEnabled(true);
+            this.btnAgregar.setEnabled(true);
+             this.btnEliminar.setEnabled(false);
+            this.btnEditar.setEnabled(false);
+        }else{
+            this.btnEliminar.setEnabled(true);
+            this.btnEditar.setEnabled(true);
+            this.lblConcentracion.setEnabled(true);
+            this.txtConcentracion.setEnabled(true);
+            this.btnAgregar.setEnabled(false);
+        }
         
-        this.btnAgregar.setEnabled(estado);
-        this.lblConcentracion.setEnabled(estado);
-        this.txtConcentracion.setEnabled(estado);
         
-        this.btnEliminar.setEnabled(! estado);
-        this.btnEditar.setEnabled(! estado);
-    }
     
-    public void llamarMedicamento(Medicamento medicamento){
-        this.med = medicamento;
-        this.txtMedicamento.setText(this.med.getNombre());
         
-        DAOComponente dao = new DAOComponente();
-         String medicamentoss = this.txtMedicamento.getText();
-        
-        try{
-            this.componentes = dao.listar(medicamentoss);
-            this.componenteTable.setComponentes(componentes);
-            
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "No se pudo listar los componentes");
-        }  
+       
     }
     
     private void listarPrincipios(){
@@ -291,7 +354,41 @@ public class JFAddPrincipios extends javax.swing.JFrame {
             
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this, "No se pudo listar los principios activos");
-        }
+        }       
+    }
+    
+    private Componente crearEntidad() {
+        Componente comp  =new Componente();
+        int principioIndex = this.tblListaPrincipios.getSelectedRow();
+        comp.setConcentracion(this.txtConcentracion.getText());
+        comp.setMedicamento(this.med);
+        comp.setPrincipio(this.principios.get(principioIndex));
+        comp.setVigente(true);
+        return comp;
+    }
+    
+     private boolean validar() {
+        int principioIndex = this.tblListaPrincipios.getSelectedRow();
+        if(principioIndex == -1) return false;
         
+        boolean noLoTiene= true;
+         for (Componente componente : this.componentes) {
+            
+             if(componente.getPrincipio().getNombre().equals(this.principios.get(principioIndex).getNombre())){
+               noLoTiene = false;
+              }
+                  
+         }
+        return noLoTiene;
+    }
+     
+     private void listarComponentes() {
+        DAOComponente dao = new DAOComponente();
+        try{
+            this.componentes = dao.listar(this.med);
+            this.componenteTable.setComponentes(componentes);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "No se pudo listar los componentes");
+        }
     }
 }

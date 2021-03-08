@@ -5,9 +5,11 @@
  */
 package medicamentos.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
+import medicamentos.dao.DAOComponente;
 import medicamentos.dao.DAOLaboratorio;
 import medicamentos.dao.DAOMedicamento;
 import medicamentos.entidades.Laboratorio;
@@ -353,7 +355,7 @@ public class JFMedicamento extends javax.swing.JFrame {
             this.medicamentos = dao.listar(this.txtMedicamento.getText());
             this.medicamentoTable.setMedicamentos(this.medicamentos);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo listar los laboratorios");
+            JOptionPane.showMessageDialog(this, "No se pudo listar los laboratorios "+ ex.getMessage());
         }    }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnPrincipiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipiosActionPerformed
@@ -368,7 +370,7 @@ public class JFMedicamento extends javax.swing.JFrame {
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
         // TODO add your handling code here:
         int fila = this.tblListado.getSelectedRow();
-
+        
         if (fila > -1) {
             SeleccionarMedicamento seleccionarMedicamento = new SeleccionarMedicamento(this.medicamentos.get(fila));
             seleccionarMedicamento.setVisible(true);

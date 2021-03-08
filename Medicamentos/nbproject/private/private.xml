@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Conectividad/Proyecto%20farmacia/Medicamentos/src/medicamentos/interfaces/SeleccionarMedicamento.java</file>
+            <file>file:/D:/Conectividad/Proyecto%20farmacia/Medicamentos/src/medicamentos/dao/DAOComponente.java</file>
+            <file>file:/D:/Conectividad/Proyecto%20farmacia/Medicamentos/src/medicamentos/JFPrincipal.java</file>
+            <file>file:/D:/Conectividad/Proyecto%20farmacia/Medicamentos/src/medicamentos/dao/DAOMedicamento.java</file>
+            <file>file:/D:/Conectividad/Proyecto%20farmacia/Medicamentos/src/medicamentos/interfaces/JFMedicamento.java</file>
+        </group>
     </open-files>
 </project-private>

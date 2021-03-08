@@ -9,6 +9,7 @@ import medicamentos.interfaces.JFLaboratorio;
 import medicamentos.interfaces.JFListadoMedicamentos;
 import medicamentos.interfaces.JFMedicamento;
 import medicamentos.interfaces.JFPrincipioActivo;
+import medicamentos.interfaces.ListarMedicamentosIguales;
 
 /**
  *
@@ -83,6 +84,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         mnuReportes.add(mnuListadoMedicamentos);
 
         mnuBusqueda.setText("Búsqueda de medicamente iguales");
+        mnuBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBusquedaActionPerformed(evt);
+            }
+        });
         mnuReportes.add(mnuBusqueda);
 
         bmPrincipal.add(mnuReportes);
@@ -125,6 +131,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         JFListadoMedicamentos frame = new JFListadoMedicamentos();
         frame.setVisible(true);
     }//GEN-LAST:event_mnuListadoMedicamentosActionPerformed
+
+    private void mnuBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBusquedaActionPerformed
+        ListarMedicamentosIguales frame = new ListarMedicamentosIguales();
+        frame.setVisible(true);
+    }//GEN-LAST:event_mnuBusquedaActionPerformed
 
     /**
      * @param args the command line arguments

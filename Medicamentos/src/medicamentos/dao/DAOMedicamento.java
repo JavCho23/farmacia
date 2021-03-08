@@ -3,6 +3,7 @@ package medicamentos.dao;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import medicamentos.entidades.Componente;
 import medicamentos.entidades.Laboratorio;
 import medicamentos.entidades.Medicamento;
 
@@ -123,6 +124,56 @@ public class DAOMedicamento
                 medicamentos.add(med);
             }
             rs.close();
+        }catch(Exception ex){
+            throw  ex;
+        }
+        
+        return medicamentos;
+    }
+     public List<Medicamento> listarExcepto(Medicamento medicamento) throws Exception{
+        List<Medicamento> medicamentos = null;
+        Laboratorio lab;
+        Medicamento med;
+        ResultSet rs = null;
+        String sql = "SELECT M.Codigo, M.Nombre, L.Nombre AS Laboratorio "
+                + "FROM Medicamento M JOIN Laboratorio L ON M.Laboratorio = L.Codigo "
+                + "WHERE M.Codigo != "+ medicamento.getCodigo();
+        
+             
+        try{
+            this.conectar();
+            rs = this.pedirDatos(sql);
+            medicamentos = new ArrayList<>();
+            while( rs.next() == true){
+                med = new Medicamento();
+                med.setCodigo(rs.getInt("Codigo"));
+                med.setNombre(rs.getString("Nombre"));
+                lab = new Laboratorio();
+                lab.setNombre(rs.getString("Laboratorio"));
+                med.setLaboratorio(lab);
+                medicamentos.add(med);
+            }
+            rs.close();
+        }catch(Exception ex){
+            throw  ex;
+        }
+        
+        return medicamentos;
+    }
+       public List<Medicamento> importarPrincipiosActivos(Medicamento medicamentoAActualizar,Medicamento medicamentoOrigen) throws Exception{
+        List<Medicamento> medicamentos = null;
+        Laboratorio lab;
+        Medicamento med;
+       
+        DAOComponente daoComponente = new DAOComponente();
+             
+        try{
+            List<Componente> componentes = daoComponente.listarPorMedicamento(medicamentoOrigen);
+            daoComponente.eliminarPorMedicamento(medicamentoAActualizar);
+            for (Componente componente : componentes) {
+                componente.setMedicamento(medicamentoAActualizar);
+                daoComponente.registrar(componente);
+            }
         }catch(Exception ex){
             throw  ex;
         }

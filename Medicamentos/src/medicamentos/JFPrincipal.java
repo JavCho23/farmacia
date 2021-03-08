@@ -41,7 +41,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         mnuListadoMedicamentos = new javax.swing.JMenuItem();
         mnuBusqueda = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestión de medicamentos");
 
         mnuDatos.setText("Datos");

@@ -196,6 +196,11 @@ public class JFMedicamento extends javax.swing.JFrame {
         });
 
         btnImportar.setText("Importar principios");
+        btnImportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panListadoLayout = new javax.swing.GroupLayout(panListado);
         panListado.setLayout(panListadoLayout);
@@ -253,7 +258,8 @@ public class JFMedicamento extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCerrar)))
@@ -358,6 +364,18 @@ public class JFMedicamento extends javax.swing.JFrame {
     private void txtMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMedicamentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMedicamentoActionPerformed
+
+    private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
+        // TODO add your handling code here:
+        int fila = this.tblListado.getSelectedRow();
+
+        if (fila > -1) {
+            SeleccionarMedicamento seleccionarMedicamento = new SeleccionarMedicamento(this.medicamentos.get(fila));
+            seleccionarMedicamento.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un medicamento");
+        }
+    }//GEN-LAST:event_btnImportarActionPerformed
 
     /**
      * @param args the command line arguments

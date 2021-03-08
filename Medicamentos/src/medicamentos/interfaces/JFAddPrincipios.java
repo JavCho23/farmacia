@@ -6,7 +6,11 @@
 package medicamentos.interfaces;
 
 import java.util.List;
+import javax.swing.JOptionPane;
+import medicamentos.dao.DAOComponente;
+import medicamentos.dao.DAOPrincipioActivo;
 import medicamentos.entidades.Componente;
+import medicamentos.entidades.Medicamento;
 import medicamentos.entidades.PrincipioActivo;
 
 /**
@@ -19,13 +23,16 @@ public class JFAddPrincipios extends javax.swing.JFrame {
     private ComponenteTableModel componenteTable = new ComponenteTableModel();
     private Componente actual;
     List<PrincipioActivo> principios;
-    
+    private Medicamento med;
+    List<Componente> componentes;
     /**
      * Creates new form JFAddPrincipios
      */
     public JFAddPrincipios() {
         initComponents();
         this.activarControles(false);
+        this.listarComponentes();
+        this.listarPrincipios();
     }
 
     /**
@@ -55,6 +62,11 @@ public class JFAddPrincipios extends javax.swing.JFrame {
         panComponentes.setBorder(javax.swing.BorderFactory.createTitledBorder("Componentes"));
 
         txtMedicamento.setEditable(false);
+        txtMedicamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMedicamentoActionPerformed(evt);
+            }
+        });
 
         tblListaComponentes.setModel(this.componenteTable);
         jScrollPane1.setViewportView(tblListaComponentes);
@@ -161,6 +173,10 @@ public class JFAddPrincipios extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
+    private void txtMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMedicamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMedicamentoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -214,5 +230,36 @@ public class JFAddPrincipios extends javax.swing.JFrame {
     private void activarControles(boolean estado) {
         this.lblConcentracion.setEnabled(estado);
         this.txtConcentracion.setEnabled(estado);
+    }
+    
+    public void llamarMedicamento(Medicamento medicamento){
+        this.med = medicamento;
+        this.txtMedicamento.setText(this.med.getNombre());
+    }
+    
+    private void listarComponentes(){
+         DAOComponente dao = new DAOComponente();
+         String medicamentoss = this.txtMedicamento.getText();
+        
+        try{
+            this.componentes = dao.listar(medicamentoss);
+            this.componenteTable.setComponentes(componentes);
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "No se pudo listar los componentes");
+        }        
+    }
+    
+    private void listarPrincipios(){
+        DAOPrincipioActivo dao = new DAOPrincipioActivo();
+        
+        try{
+            this.principios = dao.listarVigentes();
+            this.principioActivoTable.setPrincipiosActivos(principios);
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "No se pudo listar los principios activos");
+        }
+        
     }
 }

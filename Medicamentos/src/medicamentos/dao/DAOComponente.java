@@ -11,7 +11,7 @@ import medicamentos.entidades.PrincipioActivo;
 public class DAOComponente 
         extends Conexion{
     public void registrar(Componente componente) throws Exception {
-        String sql = "INSERT INTO Componente(Principio,Medicamento, Concentracion, Vigente) VALUES( " +
+        String sql = "INSERT INTO Componente(Principio, Medicamento, Concentracion, Vigente) VALUES( " +
                 + componente.getPrincipio().getCodigo() + ", " +
                 + componente.getMedicamento().getCodigo() + ", '" + 
                 componente.getConcentracion()+ "', 1)";

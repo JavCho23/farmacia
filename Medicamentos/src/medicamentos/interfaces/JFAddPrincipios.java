@@ -71,13 +71,28 @@ public class JFAddPrincipios extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblListaComponentes);
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         tblListaPrincipios.setModel(this.principioActivoTable);
+        tblListaPrincipios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListaPrincipiosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblListaPrincipios);
 
         lblConcentracion.setText("Concentración:");
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
 
@@ -86,52 +101,55 @@ public class JFAddPrincipios extends javax.swing.JFrame {
         panComponentesLayout.setHorizontalGroup(
             panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panComponentesLayout.createSequentialGroup()
-                .addGroup(panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panComponentesLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(txtMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panComponentesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panComponentesLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
+                        .addGap(10, 10, 10)
                         .addComponent(lblConcentracion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtConcentracion, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(txtConcentracion, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panComponentesLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panComponentesLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(btnAgregar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar))
-                    .addGroup(panComponentesLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panComponentesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panComponentesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar)
+                        .addContainerGap())))
         );
         panComponentesLayout.setVerticalGroup(
             panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panComponentesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(18, 18, 18)
+                .addGroup(panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panComponentesLayout.createSequentialGroup()
                         .addComponent(txtMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addGroup(panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblConcentracion)
-                            .addComponent(txtConcentracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                        .addGroup(panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panComponentesLayout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addGroup(panComponentesLayout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(btnAgregar)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panComponentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
+                    .addComponent(lblConcentracion)
+                    .addComponent(txtConcentracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar)
                     .addComponent(btnEditar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         btnCerrar.setText("Cerrar");
@@ -147,12 +165,10 @@ public class JFAddPrincipios extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panComponentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCerrar)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCerrar)
+                    .addComponent(panComponentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +191,18 @@ public class JFAddPrincipios extends javax.swing.JFrame {
     private void txtMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMedicamentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMedicamentoActionPerformed
+
+    private void tblListaPrincipiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaPrincipiosMouseClicked
+        this.activarControles(true);
+    }//GEN-LAST:event_tblListaPrincipiosMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,6 +257,13 @@ public class JFAddPrincipios extends javax.swing.JFrame {
     private void activarControles(boolean estado) {
         this.lblConcentracion.setEnabled(estado);
         this.txtConcentracion.setEnabled(estado);
+        
+        this.btnAgregar.setEnabled(estado);
+        this.lblConcentracion.setEnabled(estado);
+        this.txtConcentracion.setEnabled(estado);
+        
+        this.btnEliminar.setEnabled(! estado);
+        this.btnEditar.setEnabled(! estado);
     }
     
     public void llamarMedicamento(Medicamento medicamento){

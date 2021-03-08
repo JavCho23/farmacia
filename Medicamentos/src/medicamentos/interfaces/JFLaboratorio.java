@@ -19,7 +19,7 @@ public class JFLaboratorio extends javax.swing.JFrame {
     private List<Laboratorio> laboratorios;
     private Laboratorio actual;
     private LaboratorioTableModel ltm = new LaboratorioTableModel();
-
+    
     /**
      * Creates new form JFLaboratorio
      */

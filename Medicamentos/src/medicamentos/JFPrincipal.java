@@ -19,6 +19,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form JFPrincipal
+     * 
      */
     public JFPrincipal() {
         initComponents();
